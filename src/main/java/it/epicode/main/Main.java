@@ -138,13 +138,6 @@ public class Main {
         gestionePrestitoDAO.insert(prestito4);
         gestionePrestitoDAO.insert(prestito5);
 
-        // Prestiti di ciascun utente
-        utente1.getPrestiti().add(prestito1);
-        utente2.getPrestiti().add(prestito2);
-        utente3.getPrestiti().add(prestito3);
-        utente4.getPrestiti().add(prestito4);
-        System.out.println("--------------------------------------------");
-
         // Rimozione di un elemento del catalogo tramite il codice ISBN
         elementoDAO.deleteByIsbn(2);
         System.out.println("--------------------------------------------");
