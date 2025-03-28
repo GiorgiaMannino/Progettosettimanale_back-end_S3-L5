@@ -1,0 +1,21 @@
+
+RELAZIONI:
+
+Utente 1 ──────────────── M Prestito
+👉 Un utente può fare molti prestiti, ma ogni prestito è associato a un solo utente
+
+Prestito M ──────────────── 1 Utente
+👉 Un prestito è associato a un solo utente, ma un utente può fare molti prestiti
+
+
+-------------------------------------
+
+
+Prestito M ──────────────── 1 ElementoCatalogo
+👉 Un prestito è associato a un solo elemento del catalogo, ma un elemento catalogato può essere prestato molte volte
+
+ElementoCatalogo 1 ──────────────── M Prestito
+👉 Un elemento del catalogo può essere prestato molte volte, ma ogni prestito è associato a un solo elemento catalogo ( libro o rivista)
+
+
+

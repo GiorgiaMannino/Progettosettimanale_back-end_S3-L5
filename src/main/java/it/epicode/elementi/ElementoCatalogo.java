@@ -17,10 +17,17 @@ import java.util.List;
 @Table(name = "elementi_catalogo")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQueries({
-        @NamedQuery(name = "ElementoCatalogo.find.isbn", query = "SELECT e FROM ElementoCatalogo e WHERE e.codiceISBN = :isbn"),
-        @NamedQuery(name = "ElementoCatalogo.find.annoPubblicazione", query = "SELECT e FROM ElementoCatalogo e WHERE e.annoPubblicazione = :anno"),
-        @NamedQuery(name = "ElementoCatalogo.find.titolo", query = "SELECT e FROM ElementoCatalogo e WHERE e.titolo LIKE :titolo")
+        @NamedQuery(name = "ElementoCatalogo.find.isbn",
+                query = "SELECT e FROM ElementoCatalogo e WHERE e.codiceISBN = :isbn"),
+
+        @NamedQuery(name = "ElementoCatalogo.find.annoPubblicazione",
+                query = "SELECT e FROM ElementoCatalogo e WHERE e.annoPubblicazione = :anno"),
+
+        @NamedQuery(name = "ElementoCatalogo.find.titolo",
+                query = "SELECT e FROM ElementoCatalogo e WHERE e.titolo LIKE :titolo"),
+
 })
+
 public abstract class ElementoCatalogo {
 
     @Id

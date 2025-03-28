@@ -98,26 +98,28 @@ public class Main {
 
         // Creazione dei prestiti
         Prestito prestito1 = new Prestito(null, utente1, l3, LocalDate.of(2025, 3, 1), LocalDate.of(2025, 3, 31), LocalDate.of(2025, 3, 2)  );
-        Prestito prestito2 = new Prestito(null, utente2, l4, LocalDate.of(2025, 3, 5), LocalDate.of(2025, 4, 5), LocalDate.of(2025, 3, 10) );
+        Prestito prestito2 = new Prestito(null, utente2, l4, LocalDate.of(2025, 4, 5), LocalDate.of(2025, 5, 5), null );
         Prestito prestito3 = new Prestito(null, utente3, r2, LocalDate.of(2025, 3, 10), LocalDate.of(2025, 4, 10), LocalDate.of(2025, 3, 28) );
         Prestito prestito4 = new Prestito(null, utente4, r3, LocalDate.of(2025, 2, 12), LocalDate.of(2025, 3, 12), null);
-        Prestito prestito5 = new Prestito(null, utente3, l1, LocalDate.of(2025, 3, 15), LocalDate.of(2025, 4, 15), null);
+        Prestito prestito5 = new Prestito(null, utente3, l1, LocalDate.of(2025, 3, 15), LocalDate.of(2025, 4, 15), LocalDate.of(2025, 4, 12));
 
         EntityTransaction transaction = em.getTransaction();
 
         transaction.begin();
 
         // Inserimento degli oggetti nel catalogo
-        System.out.println("Inserimento degli oggetti nel catalogo...");
+        System.out.println("Inserimento libri nel catalogo...");
         elementoDAO.insert(l1);
         elementoDAO.insert(l2);
         elementoDAO.insert(l3);
         elementoDAO.insert(l4);
-
+        System.out.println("--------------------------------------------");
+        System.out.println("Inserimento riviste nel catalogo...");
         elementoDAO.insert(r1);
         elementoDAO.insert(r2);
         elementoDAO.insert(r3);
         elementoDAO.insert(r4);
+        System.out.println("--------------------------------------------");
 
 
         // Inserimento degli utenti
@@ -126,6 +128,7 @@ public class Main {
         gestionePrestitoDAO.insert(utente2);
         gestionePrestitoDAO.insert(utente3);
         gestionePrestitoDAO.insert(utente4);
+        System.out.println("--------------------------------------------");
 
         // Inserimento dei prestiti
         System.out.println("Inserimento dei prestiti...");
@@ -135,8 +138,16 @@ public class Main {
         gestionePrestitoDAO.insert(prestito4);
         gestionePrestitoDAO.insert(prestito5);
 
+        // Prestiti di ciascun utente
+        utente1.getPrestiti().add(prestito1);
+        utente2.getPrestiti().add(prestito2);
+        utente3.getPrestiti().add(prestito3);
+        utente4.getPrestiti().add(prestito4);
+        System.out.println("--------------------------------------------");
+
         // Rimozione di un elemento del catalogo tramite il codice ISBN
         elementoDAO.deleteByIsbn(2);
+        System.out.println("--------------------------------------------");
 
         transaction.commit();
 
@@ -144,31 +155,37 @@ public class Main {
         long isbnToSearch = 1;
         Libro libroFound = (Libro) elementoDAO.findIsbn(isbnToSearch);
         System.out.println("Libro trovato per ISBN " + isbnToSearch + ": " + libroFound);
+        System.out.println("--------------------------------------------");
 
         // Ricerca per anno di pubblicazione
         int annoToSearch = 2000;
         List<ElementoCatalogo> elementiPerAnno = elementoDAO.findAnnoPubblicazione(annoToSearch);
         System.out.println("Elementi trovati per anno di pubblicazione " + annoToSearch + ": " + elementiPerAnno);
+        System.out.println("--------------------------------------------");
 
         // Ricerca per autore
         String autoreToSearch = "Dante";
         List<Libro> libriPerAutore = elementoDAO.findAutore(autoreToSearch);
         System.out.println("Libri trovati per autore " + autoreToSearch + ": " + libriPerAutore);
+        System.out.println("--------------------------------------------");
 
         // Ricerca per titolo
         String titoloToSearch = "Il";
         List<ElementoCatalogo> elementiPerTitolo = elementoDAO.findTitolo(titoloToSearch);
         System.out.println("Elementi trovati per titolo " + titoloToSearch + ": " + elementiPerTitolo);
+        System.out.println("--------------------------------------------");
 
 
         // Ricerca prestiti attivi per tessera utente con prestitiByTessera
-        long tesseraUtente = 3;
+      long tesseraUtente = 2;
         List<Prestito> prestitiAttivi = gestionePrestitoDAO.findPrestitiAttiviPerTessera(tesseraUtente);
         System.out.println("Prestiti attivi per la tessera " + tesseraUtente + ": " + prestitiAttivi);
+        System.out.println("--------------------------------------------");
 
         // Ricerca di tutti i prestiti scaduti e non ancora restituiti
         List<Prestito> prestitiScaduti = gestionePrestitoDAO.findPrestitiScaduti();
         System.out.println("Prestiti scaduti e non ancora restituiti: " + prestitiScaduti);
+        System.out.println("--------------------------------------------");
 
 
         // Chiusura delle risorse

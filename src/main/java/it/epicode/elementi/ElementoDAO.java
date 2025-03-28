@@ -61,4 +61,5 @@ public class ElementoDAO {
         query.setParameter("autore", "%" + autore + "%");
         return query.getResultList();
     }
+
 }

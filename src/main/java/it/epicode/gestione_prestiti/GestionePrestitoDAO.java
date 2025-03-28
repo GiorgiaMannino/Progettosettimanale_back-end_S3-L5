@@ -32,29 +32,18 @@ public class GestionePrestitoDAO {
         System.out.println("Prestito inserito: " + prestito);
     }
 
-    public List<Prestito> findPrestitiAttiviPerTessera(Long tesseraUtente) {
-        TypedQuery<Prestito> query = em.createQuery(
-                "SELECT p FROM Prestito p WHERE p.utente.id = :tessera AND p.dataRestituzioneEffettiva IS NULL",
-                Prestito.class
-        );
+    // Metodo per trovare i prestiti attivi di un utente
+        public List<Prestito> findPrestitiAttiviPerTessera(Long tesseraUtente) {
+        TypedQuery<Prestito> query = em.createNamedQuery("Utente.findPrestitiAttivi", Prestito.class);
         query.setParameter("tessera", tesseraUtente);
         return query.getResultList();
     }
 
 
-    // Ricerca di tutti i prestiti scaduti e non ancora restituiti
+    // Metodo per trovare i prestiti scaduti
     public List<Prestito> findPrestitiScaduti() {
-        List<Prestito> prestitiScaduti = new ArrayList<>();
-        LocalDate oggi = LocalDate.now();
-        List<Prestito> tuttiIPrestiti = em.createQuery("SELECT p FROM Prestito p", Prestito.class).getResultList();
-        for (Prestito prestito : tuttiIPrestiti) {
-            if (prestito.getDataRestituzionePrevista().isBefore(oggi) && prestito.getDataRestituzioneEffettiva() == null) {
-                prestitiScaduti.add(prestito);
-            }
-        }
-
-        return prestitiScaduti;
+        TypedQuery<Prestito> query = em.createNamedQuery("Prestito.findPrestitiScaduti", Prestito.class);
+        return query.getResultList();
     }
-
-
 }
+

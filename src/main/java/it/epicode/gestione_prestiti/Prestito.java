@@ -13,6 +13,15 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table(name = "prestiti")
+@NamedQuery(
+        name = "Prestito.findPrestitiScaduti",
+        query = "SELECT p FROM Prestito p WHERE p.dataRestituzionePrevista < CURRENT_DATE AND p.dataRestituzioneEffettiva IS NULL"
+)
+@NamedQuery(
+        name = "Utente.findPrestitiAttivi",
+        query = "SELECT p FROM Prestito p WHERE p.utente.numeroTessera = :tessera AND p.dataRestituzioneEffettiva IS NULL"
+)
+
 public class Prestito {
 
     @Id
