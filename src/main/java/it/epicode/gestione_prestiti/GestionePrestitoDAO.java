@@ -1,11 +1,7 @@
 package it.epicode.gestione_prestiti;
 
-import it.epicode.elementi.ElementoCatalogo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GestionePrestitoDAO {
